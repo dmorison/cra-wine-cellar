@@ -20,8 +20,7 @@ export const details = {
 		"Shiraz",
 		"Syrah",
 		"Malbec",
-		"Pinotage",
-		"Other"
+		"Pinotage"
 	],
 	Purchased: [
 		"Waitrose",

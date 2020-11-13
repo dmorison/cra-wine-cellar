@@ -8,17 +8,20 @@ import { mockData } from './mockData';
 
 const filterParams = {
 	Search: 0,
-	Type: "",
-	Country: "",
-	Variety: "",
-	Purchased: ""
+	Stock: -1,
+	filterTypes: {
+		Type: "",
+		Country: "",
+		Variety: "",
+		Purchased: ""
+	}
 };
 
 const App = () => {
 	const [initWines, setInitWines] = useState([]);
 	const [wines, setWines] = useState([]);
 	const [filters, setFilters] = useState(filterParams);
-	const [stockFilter, setStockFilter] = useState("3");
+	const [orderByValue, setOrderByValue] = useState("none");
 
   useEffect(() => {
     getWines();
@@ -54,7 +57,7 @@ const App = () => {
 
 	const searchWines = (event) => {
 		let updatedWines = [];
-		if (event.target.value.length > filterParams.Search) {
+		if (event.target.value.length > filters.Search) {
 			updatedWines = wines;
 		} else {
 			updatedWines = initWines;
@@ -65,77 +68,72 @@ const App = () => {
 				event.target.value.toLowerCase()) !== -1;
 		});
 		
-		filterParams.Search = event.target.value.length;
-		setFilters(filterParams);
+		filters.Search = event.target.value.length;
+		setFilters(filters);
 		setWines(updatedWines);
 	}
 
 	const filterWines = (event, filterBy) => {
-		console.log(filters);
-		console.log(filterBy);
-		console.log(event.target.value);
+		let thisFilter = filters.filterTypes;
 
-		let updatedWines = [];
-		if (filters[filterBy] === "") {
-			updatedWines = wines;			
-		} else {
-			updatedWines = initWines;
+		if (filterBy !== "Stock") {
+			thisFilter[filterBy] = event.target.value;
 		}
 
-		updatedWines = updatedWines.filter(item => {
-			return item[filterBy].toLowerCase() === event.target.value;
-		});
-
-		filterParams[filterBy] = event.target.value;
-		setFilters(filterParams);
-		setWines(updatedWines);
-	}
-
-	const filterByStock = (event) => {
-		console.log(event.target.value);
-		console.log(stockFilter);
-
 		let updatedWines = initWines;
-		for (const prop in filters) {
-			if (prop !== "Search" && filters[prop] !== "") {
-				console.log(`${prop}: ${filters[prop]}`);
-				updatedWines = wines;
+		for (const prop in thisFilter) {
+			if (thisFilter[prop] === "") {
+				console.log(`${prop} is not set`);
+			} else {
+				updatedWines = updatedWines.filter(item => {
+					return item[prop].toLowerCase() === thisFilter[prop];
+				});
 			}
 		}
 
-		if (event.target.value === "1") {
-			console.log("filter by in stock");
-			updatedWines = updatedWines.filter(item => {
-				return parseInt(item.Stock) > 0;
-			});
-		} else if (event.target.value === "2") {
-			console.log("filter by out of stock");
-			updatedWines = updatedWines.filter(item => {
-				return parseInt(item.Stock) === 0;
-			});
-		} else {
-			console.log("remove");
+		if (filterBy === "Stock") {
+			let stockFilter = Number(event.target.value);
+
+			if (stockFilter > 0) {
+				updatedWines = updatedWines.filter(item => {
+					return Number(item.Stock) > 0;
+				});
+			} else if (stockFilter === 0) {
+				updatedWines = updatedWines.filter(item => {
+					return Number(item.Stock) === 0;
+				});
+			}
+
+			filters.Stock = stockFilter;
 		}
 
+		filters.filterTypes = thisFilter;
+		setFilters(filters);
+		setOrderByValue("none");
 		setWines(updatedWines);
-		// let newStockFilterValue = !stockFilter;
-		// console.log(newStockFilterValue);
-		setStockFilter(event.target.value);
 	}
 
 	const orderBy = (event) => {
-		console.log(event.target.value);
 		let updatedWines = wines;
-		console.log(typeof(updatedWines[0].Price));
+
 		updatedWines.map((item) => {
 			return item.Price = parseFloat(item.Price);
 		});
-		console.log(typeof(updatedWines[0].Price));
-		console.log(updatedWines);
-		updatedWines = [...updatedWines].sort((a, b) => {
-			return a.Price - b.Price;
-		});
-		// console.log(updatedWines);
+
+		switch (event.target.value) {
+			case "price_low-high":
+				updatedWines = [...updatedWines].sort((a, b) => {
+					return a.Price - b.Price;
+				});
+				break;
+			case "price_high-low":
+				updatedWines = [...updatedWines].sort((a, b) => {
+					return b.Price - a.Price;
+				});
+				break;
+		}
+		
+		setOrderByValue(event.target.value);
 		setWines(updatedWines);
 	}
 
@@ -150,7 +148,7 @@ const App = () => {
 				</div>
 				<div>
 					<select onChange={(e) => filterWines(e, "Country")}>
-						<option value={0}>Select Country</option>
+						<option value={""}>Select Country</option>
 						{
 							details.Country.map((country, i) => {
 								return (
@@ -162,7 +160,7 @@ const App = () => {
 				</div>
 				<div>
 					<select onChange={(e) => filterWines(e, "Variety")}>
-						<option value={0}>Select Variety</option>
+						<option value={""}>Select Variety</option>
 						{
 							details.Variety.map((variety, i) => {
 								return (
@@ -173,12 +171,12 @@ const App = () => {
 					</select>
 				</div>
 				<div>			
-					<label><input type="radio" name="stock" value="1" onChange={filterByStock} checked={stockFilter === "1"} />In stock</label>
-					<label><input type="radio" name="stock" value="2" onChange={filterByStock} checked={stockFilter === "2"} />Out of stock</label>
-					<label><input type="radio" name="stock" value="3" onChange={filterByStock} checked={stockFilter === "3"} />Show all</label>
+					<label><input type="radio" name="stock" value={1} onChange={(e) => filterWines(e, "Stock")} checked={filters.Stock === 1} />In stock</label>
+					<label><input type="radio" name="stock" value={0} onChange={(e) => filterWines(e, "Stock")} checked={filters.Stock === 0} />Out of stock</label>
+					<label><input type="radio" name="stock" value={-1} onChange={(e) => filterWines(e, "Stock")} checked={filters.Stock === -1} />Show all</label>
 				</div>
 				<div>
-					<select onChange={orderBy}>
+					<select onChange={orderBy} value={orderByValue}>
 						<option value="none">Select Order</option>
 						<option value="price_high-low">Price high-low</option>
 						<option value="price_low-high">Price low-high</option>
