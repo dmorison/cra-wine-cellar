@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 // import { Container, Row, Col } from 'react-bootstrap';
 import './App.css';
 
-import { details } from './utils';
+import { details } from '../utils/utils';
 // import { getData } from './API';
-import { mockData } from './mockData';
+import { mockData } from '../utils/mockData';
 
 const filterParams = {
 	Search: 0,
