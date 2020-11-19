@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import './App.css';
 
 import Filter from "./Filter";
 import Sort from "./Sort";
-import { getData } from '../utils/API';
-// import { mockData } from '../utils/mockData';
+import Detail from "./Detail";
+// import { getData } from '../utils/API';
+import { mockData } from '../utils/mockData';
 
 const filterParams = {
 	Search: "",
@@ -23,6 +24,14 @@ const App = () => {
 	const [initWines, setInitWines] = useState([]);
 	const [wines, setWines] = useState([]);
 	const [filters, setFilters] = useState(filterParams);
+	const [wineDetail, setWineDetail] = useState({});
+	const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = (e, wine) => {
+		setWineDetail(wine);
+		setShow(true);
+	};
 
   useEffect(() => {
     getWines();
@@ -40,20 +49,20 @@ const App = () => {
 	};
 
 	const getWines = async () => {
-		// let data = mockData;
-		// console.log(data);
-		// setInitWines(data);
-		// setWines(data);
-		try {
-			const { data } = await getData();
-			console.log(data.values);
-			let responseData = formatData(data.values);
-			console.log(responseData);
-			setInitWines(responseData);
-			setWines(responseData);
-		} catch (err) {
-			console.log(err);
-		}
+		let data = mockData;
+		console.log(data);
+		setInitWines(data);
+		setWines(data);
+		// try {
+		// 	const { data } = await getData();
+		// 	console.log(data.values);
+		// 	let responseData = formatData(data.values);
+		// 	console.log(responseData);
+		// 	setInitWines(responseData);
+		// 	setWines(responseData);
+		// } catch (err) {
+		// 	console.log(err);
+		// }
 	};
 
   return (
@@ -61,36 +70,45 @@ const App = () => {
 			<header className="App-header">
 				<h1>Wine Cellar</h1>
 			</header>
-			<div className="wrapper">
-				<div>
+			<Container>
+				<Row>
 					<Filter
 						initWines={initWines}
 						setWines={setWines}
 						filters={filters}
 						setFilters={setFilters}
 					/>
-				</div>
-				<div>
+				</Row>
+				<Row>
 					<Sort
 						wines={wines}
 						setWines={setWines}
 						filters={filters}
 						setFilters={setFilters}
 					/>
-				</div>			
-				{wines.map((wine, i) => {
-					return (
-						<div className="card" key={i}>
-							{Object.keys(wine).map((key) => {
-								return (
-									<p key={key}><span>{key}:</span> <span>{wine[key]}</span></p>
-								)
-							})}
-						</div>
-					)
-				})}
+				</Row>
+				<Row>
+					{wines.map((wine, i) => {
+						return (
+							<Col xs={12} md={4} lg={3} key={i}>
+								<a onClick={(e) => handleShow(e, wine)} className="wine-card">
+									<span className="wineName"><strong>{wine.Name}</strong></span>
+									<span>{wine.Country}</span><br />
+									<span>{wine.Region}</span><br />
+									<span>{wine.Variety}</span>
+									{/* {Object.keys(wine).map((key) => {
+										return (
+											<p key={key}><span>{key}:</span> <span>{wine[key]}</span></p>
+										)
+									})} */}
+								</a>
+							</Col>
+						)
+					})}
+					<Detail show={show} handleClose={handleClose} wine={wineDetail} />
+				</Row>
 				{/* <button onClick={() => getWines()}>UPDATE WINES</button> */}
-			</div>
+			</Container>
 		</div>
 	)
 };

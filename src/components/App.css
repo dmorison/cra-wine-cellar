@@ -17,14 +17,19 @@
   padding: 20px;
 }
 
-.card {
-  width: 100%;
-  float: left;
-  border: 1px solid #ccc;
+.wine-card {
+  display: block;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #eee;
+  border: 1px solid #bbb;
+  border-radius: 3px;
 }
 
-@media only screen and (min-width: 760px) {
-  .card {
-    width: 20%;
-  }
+.wineName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
