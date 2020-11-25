@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Row, Col } from "react-bootstrap";
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
+import React from "react";
+// import { Row, Col } from "react-bootstrap";
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Form from 'react-bootstrap/Form';
 
 import { details } from '../utils/utils';
 
@@ -9,16 +10,14 @@ const Filter = (props) => {
   let { filters } = props;
   
   const filterWines = (e, filterBy) => {
-    console.log(e);
-    console.log(filterBy);
     let updatedWines = props.initWines;
     
     if (filterBy === "Search") {
       updatedWines = updatedWines.filter(item => {
         return item.Name.toLowerCase().search(
-          e.toLowerCase()) !== -1;
+          e.target.value.toLowerCase()) !== -1;
       });
-      filters.Search = e;
+      filters.Search = e.target.value;
     } else if (filters.Search !== "") {
       updatedWines = updatedWines.filter(item => {
         return item.Name.toLowerCase().search(
@@ -27,13 +26,13 @@ const Filter = (props) => {
     }
 
     let thisFilter = filters.filterTypes;
-		if (filterBy !== "Stock" && filterBy !== "Search") {
+		if (filterBy !== "Stock" && filterBy !== "Search" && filterBy !== "Sort") {
 			thisFilter[filterBy] = e;
 		}
     
 		for (const prop in thisFilter) {
 			if (thisFilter[prop] === "") {
-				console.log(`${prop} is not set`);
+				// console.log(`${prop} is not set`);
 			} else if (thisFilter[prop] === "other") {
         updatedWines = updatedWines.filter(item => {
 					return details[filterBy].indexOf(item[prop]) < 0;
@@ -59,109 +58,138 @@ const Filter = (props) => {
       updatedWines = updatedWines.filter(item => {
         return Number(item.Stock) === 0;
       });
-    }		
+    }
+
+    if (filterBy === "Sort" || filters.Sort !== "none") {
+      updatedWines.map((item) => {
+        return item.Price = parseFloat(item.Price);
+      });
+
+      const sortVariable = filterBy === "Sort" ? e : filters.Sort;
+      
+      switch (sortVariable) {
+        case "price_low-high":
+          updatedWines = [...updatedWines].sort((a, b) => {
+            return a.Price - b.Price;
+          });
+          break;
+        case "price_high-low":
+          updatedWines = [...updatedWines].sort((a, b) => {
+            return b.Price - a.Price;
+          });
+          break;
+      }
+      filters.Sort = sortVariable;
+    }
 
     filters.filterTypes = thisFilter;
-    filters.Sort = "none";
 		props.setFilters(filters);
     props.setWines(updatedWines);
 	}
 
   return (
-    <>
-      <Col xs={12} md={2}>
-        <input 
+    <Nav>
+      <NavDropdown
+        title={filters.filterTypes.Country === "" ? "Country" : filters.filterTypes.Country} 
+        onSelect={(e) => filterWines(e, "Country")}
+      >
+        <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
+        {
+          details.Country.map((country, i) => {
+            return (
+            <NavDropdown.Item 
+              key={i} 
+              eventKey={country.toLowerCase()}
+            >
+              {country}
+            </NavDropdown.Item>
+            )
+          })
+        }
+      </NavDropdown>
+      
+      <NavDropdown 
+        title={filters.filterTypes.Variety === "" ? "Variety" : filters.filterTypes.Variety} 
+        onSelect={(e) => filterWines(e, "Variety")}
+      >
+        <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
+        {
+          details.Variety.map((variety, i) => {
+            return (
+            <NavDropdown.Item 
+              key={i} 
+              eventKey={variety.toLowerCase()}
+            >
+              {variety}
+            </NavDropdown.Item>
+            )
+          })
+        }
+      </NavDropdown>
+
+      <NavDropdown 
+        title={filters.filterTypes.Purchased === "" ? "Purchased" : filters.filterTypes.Purchased} 
+        onSelect={(e) => filterWines(e, "Purchased")}
+      >
+        <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
+        {
+          details.Purchased.map((purchased, i) => {
+            return (
+            <NavDropdown.Item 
+              key={i} 
+              eventKey={purchased.toLowerCase()}
+            >
+                {purchased}
+            </NavDropdown.Item>
+            )
+          })
+        }
+      </NavDropdown>
+
+      <NavDropdown 
+        title={filters.Stock === -1 ? 
+                "Stock" : 
+                  filters.Stock === 1 ?
+                  "In stock" : "Out of stock"
+              } 
+        onSelect={(e) => filterWines(e, "Stock")}
+      >
+        <NavDropdown.Item eventKey={1}>
+          In stock
+        </NavDropdown.Item>
+        <NavDropdown.Item eventKey={0}>
+          Out of stock
+        </NavDropdown.Item>
+        <NavDropdown.Item eventKey={-1}>
+          Show all
+        </NavDropdown.Item>              
+      </NavDropdown>
+      
+      <NavDropdown 
+				title={filters.Sort === "none" ? 
+								"Sort by" : 
+									filters.Sort === "price_high-low" ?
+									"Price high-low" : "Price low-high"
+							} 
+				onSelect={(e) => filterWines(e, "Sort")}
+			>
+				<NavDropdown.Item eventKey={"price_high-low"}>
+					Price high-low
+				</NavDropdown.Item>
+				<NavDropdown.Item eventKey={"price_low-high"}>
+					Price low-high
+				</NavDropdown.Item>              
+			</NavDropdown>
+
+      <Form inline>
+        <Form.Control
           className="search-input" 
           type="text" 
           placeholder="Search" 
-          onChange={(e) => filterWines(e, "Search")} 
+          onChange={(e) => filterWines(e, "Search")}
         />
-      </Col>
-      <Col xs={12} md={8}>
-        <Row>
-          <Col xs={12} md={3}>
-            <DropdownButton 
-              title={filters.filterTypes.Country === "" ? "Country" : filters.filterTypes.Country} 
-              onSelect={(e) => filterWines(e, "Country")}
-            >
-              <Dropdown.Item eventKey={""}>Clear filter</Dropdown.Item>
-              {
-                details.Country.map((country, i) => {
-                  return (
-                  <Dropdown.Item 
-                    key={i} 
-                    eventKey={country.toLowerCase()}
-                  >
-                      {country}
-                  </Dropdown.Item>
-                  )
-                })
-              }
-            </DropdownButton>
-          </Col>
-          <Col xs={12} md={3}>
-            <DropdownButton 
-              title={filters.filterTypes.Variety === "" ? "Variety" : filters.filterTypes.Variety} 
-              onSelect={(e) => filterWines(e, "Variety")}
-            >
-              <Dropdown.Item eventKey={""}>Clear filter</Dropdown.Item>
-              {
-                details.Variety.map((variety, i) => {
-                  return (
-                  <Dropdown.Item 
-                    key={i} 
-                    eventKey={variety.toLowerCase()}
-                  >
-                      {variety}
-                  </Dropdown.Item>
-                  )
-                })
-              }
-            </DropdownButton>            
-          </Col>
-          <Col xs={12} md={3}>
-            <DropdownButton 
-              title={filters.filterTypes.Purchased === "" ? "Purchased" : filters.filterTypes.Purchased} 
-              onSelect={(e) => filterWines(e, "Purchased")}
-            >
-              <Dropdown.Item eventKey={""}>Clear filter</Dropdown.Item>
-              {
-                details.Purchased.map((purchased, i) => {
-                  return (
-                  <Dropdown.Item 
-                    key={i} 
-                    eventKey={purchased.toLowerCase()}
-                  >
-                      {purchased}
-                  </Dropdown.Item>
-                  )
-                })
-              }
-            </DropdownButton>            
-          </Col>
-          <Col xs={12} md={3}>
-            <DropdownButton 
-              title={filters.Stock === -1 ? 
-                      "Stock" : 
-                        filters.Stock === 1 ?
-                        "In stock" : "Out of stock"
-                    } 
-              onSelect={(e) => filterWines(e, "Stock")}
-            >
-              <Dropdown.Item eventKey={1}>
-                In stock
-              </Dropdown.Item>
-              <Dropdown.Item eventKey={0}>
-                Out of stock
-              </Dropdown.Item>
-              <Dropdown.Item eventKey={-1}>
-                Show all
-              </Dropdown.Item>              
-            </DropdownButton>
-          </Col>
-        </Row>
-      </Col>
-    </>
+      </Form>
+    </Nav>
   );
 };
 

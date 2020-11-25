@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import Navbar from 'react-bootstrap/Navbar'
 import './App.css';
 
 import Filter from "./Filter";
-import Sort from "./Sort";
+// import Sort from "./Sort";
 import Detail from "./Detail";
 // import { getData } from '../utils/API';
 import { mockData } from '../utils/mockData';
@@ -67,11 +68,29 @@ const App = () => {
 
   return (
 		<div className="App">
-			<header className="App-header">
+			{/* <header className="App-header">
 				<h1>Wine Cellar</h1>
-			</header>
+			</header> */}
+			<Navbar sticky="top" expand="lg" bg="dark" variant="dark">
+				<Navbar.Brand>Wine Cellar</Navbar.Brand>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">					
+					<Filter
+						initWines={initWines}
+						setWines={setWines}
+						filters={filters}
+						setFilters={setFilters}
+					/>
+					{/* <Sort
+						wines={wines}
+						setWines={setWines}
+						filters={filters}
+						setFilters={setFilters}
+					/> */}
+				</Navbar.Collapse>
+			</Navbar>
 			<Container>
-				<Row>
+				{/* <Row>					
 					<Filter
 						initWines={initWines}
 						setWines={setWines}
@@ -84,7 +103,7 @@ const App = () => {
 						filters={filters}
 						setFilters={setFilters}
 					/>
-				</Row>
+				</Row> */}
 				<Row>
 					{wines.map((wine, i) => {
 						return (

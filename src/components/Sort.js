@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Col } from "react-bootstrap";
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 
@@ -33,8 +35,8 @@ const Sort = (props) => {
 	}
 
   return (
-    <Col xs={12} md={2}>
-			<DropdownButton 
+    <Nav>
+			<NavDropdown 
 				title={filters.Sort === "none" ? 
 								"Sort by" : 
 									filters.Sort === "price_high-low" ?
@@ -42,14 +44,14 @@ const Sort = (props) => {
 							} 
 				onSelect={sortBy}
 			>
-				<Dropdown.Item eventKey={"price_high-low"}>
+				<NavDropdown.Item eventKey={"price_high-low"}>
 					Price high-low
-				</Dropdown.Item>
-				<Dropdown.Item eventKey={"price_low-high"}>
+				</NavDropdown.Item>
+				<NavDropdown.Item eventKey={"price_low-high"}>
 					Price low-high
-				</Dropdown.Item>              
-			</DropdownButton>
-    </Col>
+				</NavDropdown.Item>              
+			</NavDropdown>
+    </Nav>
   );
 }
 
