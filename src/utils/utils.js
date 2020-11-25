@@ -11,7 +11,8 @@ export const details = {
 		"Australia",
 		"Argentina",
 		"Chile",
-		"New Zealand"
+		"New Zealand",
+		"Other"
 	],
 	Variety: [
 		"Blend",
@@ -20,13 +21,15 @@ export const details = {
 		"Shiraz",
 		"Syrah",
 		"Malbec",
-		"Pinotage"
+		"Pinotage",
+		"Other"
 	],
 	Purchased: [
 		"Waitrose",
 		"Ocado",
 		"Majestic",
 		"Amazon",
-		"Laithwaites"
+		"Laithwaites",
+		"Other"
 	]
 };

@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import { Col } from "react-bootstrap";
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const Sort = (props) => {
   let { filters } = props;
 
   const sortBy = (event) => {
-    let updatedWines = props.wines;
+		console.log(event);
+		let updatedWines = props.wines;
 
 		updatedWines.map((item) => {
 			return item.Price = parseFloat(item.Price);
 		});
 
-		switch (event.target.value) {
+		switch (event) {
 			case "price_low-high":
 				updatedWines = [...updatedWines].sort((a, b) => {
 					return a.Price - b.Price;
@@ -23,19 +27,29 @@ const Sort = (props) => {
 				break;
 		}
     
-    filters.Sort = event.target.value;
+    filters.Sort = event;
     props.setFilters(filters);
 		props.setWines(updatedWines);
 	}
 
   return (
-    <div>
-      <select onChange={sortBy} value={filters.Sort}>
-        <option value="none">Select Order</option>
-        <option value="price_high-low">Price high-low</option>
-        <option value="price_low-high">Price low-high</option>
-      </select>
-    </div>
+    <Col xs={12} md={2}>
+			<DropdownButton 
+				title={filters.Sort === "none" ? 
+								"Sort by" : 
+									filters.Sort === "price_high-low" ?
+									"Price high-low" : "Price low-high"
+							} 
+				onSelect={sortBy}
+			>
+				<Dropdown.Item eventKey={"price_high-low"}>
+					Price high-low
+				</Dropdown.Item>
+				<Dropdown.Item eventKey={"price_low-high"}>
+					Price low-high
+				</Dropdown.Item>              
+			</DropdownButton>
+    </Col>
   );
 }
 

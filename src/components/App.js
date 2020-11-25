@@ -78,8 +78,6 @@ const App = () => {
 						filters={filters}
 						setFilters={setFilters}
 					/>
-				</Row>
-				<Row>
 					<Sort
 						wines={wines}
 						setWines={setWines}
