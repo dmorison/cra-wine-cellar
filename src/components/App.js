@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Navbar from 'react-bootstrap/Navbar'
 import './App.css';
 
-import Filter from "./Filter";
-// import Sort from "./Sort";
+import Head from "./Head";
+import WineCard from "./WineCard";
 import Detail from "./Detail";
 // import { getData } from '../utils/API';
 import { mockData } from '../utils/mockData';
@@ -67,59 +66,18 @@ const App = () => {
 	};
 
   return (
-		<div className="App">
-			{/* <header className="App-header">
-				<h1>Wine Cellar</h1>
-			</header> */}
-			<Navbar sticky="top" expand="lg" bg="dark" variant="dark">
-				<Navbar.Brand>Wine Cellar</Navbar.Brand>
-				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">					
-					<Filter
-						initWines={initWines}
-						setWines={setWines}
-						filters={filters}
-						setFilters={setFilters}
-					/>
-					{/* <Sort
-						wines={wines}
-						setWines={setWines}
-						filters={filters}
-						setFilters={setFilters}
-					/> */}
-				</Navbar.Collapse>
-			</Navbar>
+		<div className="App">			
+			<Head
+				initWines={initWines}
+				setWines={setWines}
+				filters={filters}
+				setFilters={setFilters}
+			/>
 			<Container>
-				{/* <Row>					
-					<Filter
-						initWines={initWines}
-						setWines={setWines}
-						filters={filters}
-						setFilters={setFilters}
-					/>
-					<Sort
-						wines={wines}
-						setWines={setWines}
-						filters={filters}
-						setFilters={setFilters}
-					/>
-				</Row> */}
 				<Row>
 					{wines.map((wine, i) => {
 						return (
-							<Col xs={12} md={4} lg={3} key={i}>
-								<a onClick={(e) => handleShow(e, wine)} className="wine-card">
-									<span className="wineName"><strong>{wine.Name}</strong></span>
-									<span>{wine.Country}</span><br />
-									<span>{wine.Region}</span><br />
-									<span>{wine.Variety}</span>
-									{/* {Object.keys(wine).map((key) => {
-										return (
-											<p key={key}><span>{key}:</span> <span>{wine[key]}</span></p>
-										)
-									})} */}
-								</a>
-							</Col>
+							<WineCard wine={wine} key={i} handleShow={handleShow} />
 						)
 					})}
 					<Detail show={show} handleClose={handleClose} wine={wineDetail} />

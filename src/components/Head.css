@@ -1,0 +1,24 @@
+.navbar > container {
+  margin-top: 0px;
+}
+
+.dropdown {
+  text-transform: capitalize;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.form-inline {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+@media only screen and (min-width: 768px) {
+  .form-inline {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+  }
+}
