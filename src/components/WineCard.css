@@ -7,10 +7,11 @@
   border-radius: 3px;
 }
 
-.wineName {
+.wine-name {
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 48px;
   display: -webkit-box;
-  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-line-clamp: 2; /* number of lines to show */
   -webkit-box-orient: vertical;
 }

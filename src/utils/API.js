@@ -2,8 +2,6 @@ import axios from "axios";
 import { keys } from "./keys";
 
 const getData = () => {
-	console.log("axiosAPI call");
-
 	const sheetId = keys.sheetId;
 	const apiKey = keys.apiKey;
 
