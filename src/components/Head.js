@@ -90,7 +90,7 @@ const Head = (props) => {
 	}
 
   return (
-    <Navbar sticky="top" expand="md" bg="dark" variant="dark">
+    <Navbar sticky="top" expand="md" variant="dark">
       <Container>
       <Navbar.Brand>Wine Cellar</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

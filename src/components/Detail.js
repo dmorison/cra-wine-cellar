@@ -1,17 +1,33 @@
 import React from "react";
 import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table'
+import { Row, Col } from 'react-bootstrap';
+import Table from 'react-bootstrap/Table';
+import "./Detail.css";
 
 const Detail = (props) => {
-  return (
+  return props.show && (
     <Modal show={props.show} onHide={props.handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{props.wine.Name} - {props.wine.Year}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <span className="small-text"><i>{props.wine.Type}</i></span><br />
-        <p className="large-text p-no-margin">{props.wine.Region}, {props.wine.Country}</p>
-        <p className="medium-text">{props.wine.Variety === "Blend" ? props.wine.Grapes : props.wine.Variety}</p>
+        <Row>
+          <Col xs={3}>
+            <img 
+              src={props.wine.Image ? `/images/${props.wine.Image}.jpg` : "/images/placeholder.png"} 
+              className="wine-thumbnail"
+              alt="wine thumbnail" 
+            />
+          </Col>
+          <Col xs={9}>
+            <span className="small-text"><i>{props.wine.Type}</i></span><br />
+            <p className="large-text p-no-margin">
+              {props.wine.Region},<br />
+              {props.wine.Country}
+            </p>
+            <p className="medium-text">{props.wine.Variety === "Blend" ? props.wine.Grapes : props.wine.Variety}</p>
+          </Col>
+        </Row>
         <Table bordered size="sm">
           <tbody>
             <tr>

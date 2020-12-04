@@ -1,6 +1,9 @@
 .App {
+  /* background-color: #f6f6f8; */
+  /* background-color: #e6e9f0; */
+
+  background-color: #e3e0cf;
   text-align: center;
-  min-height: 1200px
 }
 
 .App > .container {
