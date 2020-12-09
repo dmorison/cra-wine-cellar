@@ -20,12 +20,18 @@ const Detail = (props) => {
             />
           </Col>
           <Col xs={9}>
-            <span className="small-text"><i>{props.wine.Type}</i></span><br />
+            <span className="small-text"><i><strong>{props.wine.Type}</strong></i></span><br />
             <p className="large-text p-no-margin">
-              {props.wine.Region},<br />
-              {props.wine.Country}
+              <strong>
+                {props.wine.Region},<br />
+                {props.wine.Country}
+              </strong>
             </p>
-            <p className="medium-text">{props.wine.Variety === "Blend" ? props.wine.Grapes : props.wine.Variety}</p>
+            <p className="medium-text">
+              <strong>
+                {props.wine.Variety === "Blend" ? props.wine.Grapes : props.wine.Variety}
+              </strong>
+            </p>
           </Col>
         </Row>
         <Table bordered size="sm">

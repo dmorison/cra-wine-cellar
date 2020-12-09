@@ -15,6 +15,11 @@
 
 .navbar-nav .dropdown-menu {
   text-align: right;
+  background-color: #f1f1ef;
+}
+
+.dropdown-menu .dropdown-item {
+  color: #317e7b;
 }
 
 .navbar-brand {
@@ -24,6 +29,10 @@
 .form-inline {
   margin-top: 16px;
   margin-bottom: 8px;
+}
+
+.form-inline .form-control {
+  background-color: #f1f1ef;
 }
 
 @media only screen and (min-width: 768px) {

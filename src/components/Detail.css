@@ -1,3 +1,30 @@
+.modal-content .modal-header {
+  background-color: #9fa8a3;
+  border-bottom: none;
+}
+
+.modal-title {
+  color: #173e43;
+}
+
+.modal-body {
+  color: #317e7b;
+  background-color: #c5d5cb;
+}
+
+.modal-body .table {
+  background-color: #e3e0cf;
+}
+
+.modal-body .table-bordered {
+  border-color: #317e7b;
+}
+
+.modal-body .table-bordered td {
+  color: #317e7b;
+  border-color: #317e7b;
+}
+
 .wine-thumbnail {
   width: 100%;
   height: auto;
