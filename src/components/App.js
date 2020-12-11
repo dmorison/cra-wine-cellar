@@ -5,9 +5,8 @@ import './App.css';
 import Head from "./Head";
 import WineCard from "./WineCard";
 import Detail from "./Detail";
-// import { getData } from '../utils/API';
-import { mockData } from '../utils/mockData';
-import HeaderImage from "../assets/images/wine-grapes.jpg";
+import { getData } from '../utils/API';
+// import { mockData } from '../utils/mockData';
 
 const filterParams = {
 	Search: "",
@@ -50,20 +49,20 @@ const App = () => {
 	};
 
 	const getWines = async () => {
-		let data = mockData;
-		console.log(data);
-		setInitWines(data);
-		setWines(data);
-		// try {
-		// 	const { data } = await getData();
-		// 	console.log(data.values);
-		// 	let responseData = formatData(data.values);
-		// 	console.log(responseData);
-		// 	setInitWines(responseData);
-		// 	setWines(responseData);
-		// } catch (err) {
-		// 	console.log(err);
-		// }
+		// let data = mockData;
+		// console.log(data);
+		// setInitWines(data);
+		// setWines(data);
+		try {
+			const { data } = await getData();
+			console.log(data.values);
+			let responseData = formatData(data.values);
+			console.log(responseData);
+			setInitWines(responseData);
+			setWines(responseData);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
   return (
@@ -74,14 +73,6 @@ const App = () => {
 				filters={filters}
 				setFilters={setFilters}
 			/>
-			<Row>
-				<Col>
-					{/* <div className="header-wrapper">
-						<div className="header-image"></div>
-					</div> */}
-					{/* <img className="header-image" src={HeaderImage} alt="grape vines" /> */}
-				</Col>
-			</Row>
 			<Container>
 				<Row>
 					{wines.map((wine, i) => {
