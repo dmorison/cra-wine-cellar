@@ -5,8 +5,9 @@ import './App.css';
 import Head from "./Head";
 import WineCard from "./WineCard";
 import Detail from "./Detail";
-import { getData } from '../utils/API';
-// import { mockData } from '../utils/mockData';
+// import { getData } from '../utils/API';
+import { mockData } from '../utils/mockData';
+import { getCounts } from '../utils/counts';
 
 const filterParams = {
 	Search: "",
@@ -23,6 +24,7 @@ const filterParams = {
 const App = () => {
 	const [initWines, setInitWines] = useState([]);
 	const [wines, setWines] = useState([]);
+	const [counts, setCounts] = useState(null);
 	const [filters, setFilters] = useState(filterParams);
 	const [wineDetail, setWineDetail] = useState({});
 	const [show, setShow] = useState(false);
@@ -49,20 +51,22 @@ const App = () => {
 	};
 
 	const getWines = async () => {
-		// let data = mockData;
-		// console.log(data);
-		// setInitWines(data);
-		// setWines(data);
-		try {
-			const { data } = await getData();
-			console.log(data.values);
-			let responseData = formatData(data.values);
-			console.log(responseData);
-			setInitWines(responseData);
-			setWines(responseData);
-		} catch (err) {
-			console.log(err);
-		}
+		let data = mockData;
+		console.log(data);
+		const countsObj = getCounts(data);
+		setCounts(countsObj);
+		setInitWines(data);
+		setWines(data);
+		// try {
+		// 	const { data } = await getData();
+		// 	console.log(data.values);
+		// 	let responseData = formatData(data.values);
+		// 	console.log(responseData);
+		// 	setInitWines(responseData);
+		// 	setWines(responseData);
+		// } catch (err) {
+		// 	console.log(err);
+		// }
 	};
 
   return (
@@ -72,6 +76,7 @@ const App = () => {
 				setWines={setWines}
 				filters={filters}
 				setFilters={setFilters}
+				counts={counts}
 			/>
 			<Container>
 				<Row>
