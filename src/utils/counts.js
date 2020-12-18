@@ -1,10 +1,10 @@
-import { details } from '../utils/utils';
+import { filterHeads } from './filterHeads';
 
 const getCounts = (wines) => {
   
   let countObj = {};
-  for (const prop in details) {
-    let filterPropCounts = details[prop].map((item, index) => {
+  for (const prop in filterHeads) {
+    let filterPropCounts = filterHeads[prop].map((item, index) => {
       if (item !== "Other") {
         return wines.reduce(
           (acc, cur) => cur[prop] === item ? 
@@ -14,7 +14,7 @@ const getCounts = (wines) => {
         );
       } else {
         return wines.reduce(
-          (acc, cur) => details[prop].indexOf(cur[prop]) < 0 ?
+          (acc, cur) => filterHeads[prop].indexOf(cur[prop]) < 0 ?
             ++acc :
             acc,
             0

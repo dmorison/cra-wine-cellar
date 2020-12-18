@@ -6,7 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import "./Head.css";
 
-import { details } from '../utils/utils';
+import { filterHeads } from '../utils/filterHeads';
 
 const Head = (props) => {
   let { filters, counts } = props;
@@ -37,7 +37,7 @@ const Head = (props) => {
 				// console.log(`${prop} is not set`);
 			} else if (thisFilter[prop] === "other") {
         updatedWines = updatedWines.filter(item => {
-					return details[filterBy].indexOf(item[prop]) < 0;
+					return filterHeads[filterBy].indexOf(item[prop]) < 0;
 				});
       } else {
 				updatedWines = updatedWines.filter(item => {
@@ -103,7 +103,7 @@ const Head = (props) => {
             <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
             <NavDropdown.Divider />
             {
-              details.Country.map((country, i) => {
+              filterHeads.Country.map((country, i) => {
                 return (
                 <NavDropdown.Item 
                   key={i} 
@@ -123,7 +123,7 @@ const Head = (props) => {
             <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
             <NavDropdown.Divider />
             {
-              details.Variety.map((variety, i) => {
+              filterHeads.Variety.map((variety, i) => {
                 return (
                 <NavDropdown.Item 
                   key={i} 
@@ -143,7 +143,7 @@ const Head = (props) => {
             <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
             <NavDropdown.Divider />
             {
-              details.Purchased.map((purchased, i) => {
+              filterHeads.Purchased.map((purchased, i) => {
                 return (
                 <NavDropdown.Item 
                   key={i} 

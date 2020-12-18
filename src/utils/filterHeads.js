@@ -1,4 +1,4 @@
-export const details = {
+export const filterHeads = {
 	Type: [
 		"Red",
 		"White"
