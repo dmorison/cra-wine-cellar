@@ -25,13 +25,12 @@ const getCounts = (wines) => {
   };
 
   const InStock = wines.reduce(
-    (acc, cur) => cur.Stock > 0 ?
-      ++acc :
+    (acc, cur) => Number(cur.Stock) > 0 ?
+      acc + Number(cur.Stock) :
       acc,
       0
   );
-  const OutStock = wines.length - InStock;
-  countObj.Stock = [InStock, OutStock];
+  countObj.Stock = InStock;
 
   return countObj;
 };

@@ -167,10 +167,10 @@ const Head = (props) => {
             <NavDropdown.Item eventKey={-1}>Clear filter</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item eventKey={1}>
-              {`In stock (${counts.Stock[0]})`}
+              {`In stock (${counts.Stock})`}
             </NavDropdown.Item>
             <NavDropdown.Item eventKey={0}>
-              {`Out of stock (${counts.Stock[1]})`}
+              Out of stock
             </NavDropdown.Item>                          
           </NavDropdown>
           
