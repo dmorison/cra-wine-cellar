@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import './App.css';
 
 import Head from "./Head";
 import WineCard from "./WineCard";
 import Detail from "./Detail";
 // import { getData } from '../utils/API';
+// import { formatData } from '../utils/formatData';
 import { mockData } from '../utils/mockData';
 import { getCounts } from '../utils/counts';
 
@@ -43,17 +44,6 @@ const App = () => {
 		const countsObj = getCounts(wines);
 		setCounts(countsObj);
 	}, [wines]);
-	
-	const formatData = (data) => {
-		const keys = data[0];
-		const values = data.slice(1);
-		const objects = values.map(array => {
-			const object = {};
-			keys.forEach((key, i) => object[key] = array[i]);
-			return object;
-		});
-		return objects;
-	};
 
 	const getWines = async () => {
 		let data = mockData;
