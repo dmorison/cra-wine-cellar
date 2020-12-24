@@ -44,7 +44,7 @@ export const mockData = [
 		Purchased: "Majestic",
 		Rating: "3",
 		Region: "Valdepenas",
-		Stock: "0",
+		Stock: "1",
 		Style: "full",
 		Type: "Red",
 		Variety: "Tempranillo",

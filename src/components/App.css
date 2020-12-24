@@ -1,9 +1,11 @@
 .App {
-  /* background-color: #f6f6f8; */
-  /* background-color: #e6e9f0; */
-
-  background-color: #e3e0cf;
   text-align: center;
+
+  /* Light theme */
+  /* background-color: #e3e0cf; */
+
+  /* Dark theme */
+  background-color: #252525;
 }
 
 .App > .container {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav';
@@ -6,10 +6,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import "./Head.css";
 
-import { details } from '../utils/utils';
+import { filterHeads } from '../utils/filterHeads';
 
 const Head = (props) => {
-  let { filters } = props;
+  let { filters, counts } = props;
   
   const filterWines = (e, filterBy) => {
     let updatedWines = props.initWines;
@@ -37,7 +37,7 @@ const Head = (props) => {
 				// console.log(`${prop} is not set`);
 			} else if (thisFilter[prop] === "other") {
         updatedWines = updatedWines.filter(item => {
-					return details[filterBy].indexOf(item[prop]) < 0;
+					return filterHeads[filterBy].indexOf(item[prop]) < 0;
 				});
       } else {
 				updatedWines = updatedWines.filter(item => {
@@ -89,7 +89,7 @@ const Head = (props) => {
     props.setWines(updatedWines);
 	}
 
-  return (
+  return counts && (
     <Navbar sticky="top" expand="md" variant="dark">
       <Container>
       <Navbar.Brand>Wine Cellar</Navbar.Brand>
@@ -103,13 +103,13 @@ const Head = (props) => {
             <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
             <NavDropdown.Divider />
             {
-              details.Country.map((country, i) => {
+              filterHeads.Country.map((country, i) => {
                 return (
                 <NavDropdown.Item 
                   key={i} 
                   eventKey={country.toLowerCase()}
                 >
-                  {country}
+                  {`${country} (${counts.Country[i]})`}
                 </NavDropdown.Item>
                 )
               })
@@ -123,13 +123,13 @@ const Head = (props) => {
             <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
             <NavDropdown.Divider />
             {
-              details.Variety.map((variety, i) => {
+              filterHeads.Variety.map((variety, i) => {
                 return (
                 <NavDropdown.Item 
                   key={i} 
                   eventKey={variety.toLowerCase()}
                 >
-                  {variety}
+                  {`${variety} (${counts.Variety[i]})`}
                 </NavDropdown.Item>
                 )
               })
@@ -143,13 +143,13 @@ const Head = (props) => {
             <NavDropdown.Item eventKey={""}>Clear filter</NavDropdown.Item>
             <NavDropdown.Divider />
             {
-              details.Purchased.map((purchased, i) => {
+              filterHeads.Purchased.map((purchased, i) => {
                 return (
                 <NavDropdown.Item 
                   key={i} 
                   eventKey={purchased.toLowerCase()}
                 >
-                    {purchased}
+                  {`${purchased} (${counts.Purchased[i]})`}
                 </NavDropdown.Item>
                 )
               })
@@ -164,15 +164,14 @@ const Head = (props) => {
                   } 
             onSelect={(e) => filterWines(e, "Stock")}
           >
+            <NavDropdown.Item eventKey={-1}>Clear filter</NavDropdown.Item>
+            <NavDropdown.Divider />
             <NavDropdown.Item eventKey={1}>
-              In stock
+              {`In stock (${counts.Stock})`}
             </NavDropdown.Item>
             <NavDropdown.Item eventKey={0}>
               Out of stock
-            </NavDropdown.Item>
-            <NavDropdown.Item eventKey={-1}>
-              Show all
-            </NavDropdown.Item>              
+            </NavDropdown.Item>                          
           </NavDropdown>
           
           <NavDropdown 
