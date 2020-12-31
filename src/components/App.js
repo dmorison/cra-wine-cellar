@@ -7,7 +7,8 @@ import WineCard from "./WineCard";
 import Detail from "./Detail";
 // import { getData } from '../utils/API';
 // import { formatData } from '../utils/formatData';
-import { mockData } from '../utils/mockData';
+// import { mockData } from '../utils/mockData';
+import testData from '../utils/testDataOne.json';
 import { getCounts } from '../utils/counts';
 
 const filterParams = {
@@ -46,8 +47,9 @@ const App = () => {
 	}, [wines]);
 
 	const getWines = async () => {
-		let data = mockData;
+		let data = testData;
 		console.log(data);
+		// data = JSON.parse(data);
 		setInitWines(data);
 		setWines(data);
 		// **********************************************
