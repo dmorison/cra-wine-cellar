@@ -1,10 +1,17 @@
 .modal-content .modal-header {
-  background-color: #9fa8a3;
+  background-image: url("../assets/images/wine-grapes.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-color: #9fa8a3; */
   border-bottom: none;
+  min-height: 104px;
 }
 
-.modal-title {
-  color: #173e43;
+.modal-title span {
+  color: #252525;
+  background-color: rgba(255, 255, 255, .5);
+  padding: 4px;
+  font-weight: bold;
 }
 
 .modal-body {
@@ -20,7 +27,8 @@
   border-color: #317e7b;
 }
 
-.modal-body .table-bordered td {
+.modal-body .table-bordered td,
+.modal-body .table-bordered th {
   color: #317e7b;
   border-color: #317e7b;
 }
@@ -31,4 +39,8 @@
   margin-bottom: 15px;
   border: 2px solid #173e43;
   border-radius: 4px;
+}
+
+.fa {
+  font-size: 24px;
 }

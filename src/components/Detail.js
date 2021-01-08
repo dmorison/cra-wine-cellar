@@ -5,10 +5,37 @@ import Table from 'react-bootstrap/Table';
 import "./Detail.css";
 
 const Detail = (props) => {
+  const stars = Number(props.wine.Rating);
+
+  const renderStarRating = () => {
+    const starArr = [];
+    console.log(stars);
+    const halfStar = (stars % 1 === 0) ? false : true;
+    console.log(halfStar);
+    const fullStars = halfStar ? stars - 0.5 : stars;
+    console.log(fullStars);
+    const emptyStars = 5 - Math.round(stars);
+    console.log(emptyStars);
+
+    return (
+      <>
+        {fullStars.map(() => {
+          return <i class="fa fa-star" aria-hidden="true"></i>
+        })}
+        {halfStar && (
+          <i class="fa fa-star-half-o" aria-hidden="true"></i>
+        )}
+        {emptyStars.map(() => {
+          return <i class="fa fa-star-o" aria-hidden="true"></i>
+        })}
+      </>
+    );
+  }
+
   return props.show && (
     <Modal show={props.show} onHide={props.handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{props.wine.Name} - {props.wine.Year}</Modal.Title>
+        <Modal.Title><span>{props.wine.Name} - {props.wine.Year}</span></Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
@@ -34,28 +61,48 @@ const Detail = (props) => {
             </p>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            {renderStarRating()}
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={6}>
+          <Table size="sm">
+            <tbody>            
+              <tr>
+                <td>Rating (5)</td>
+                  <td>{props.wine.Rating}</td>
+                </tr>
+              <tr>
+                <td>Stock</td>
+                <td>{props.wine.Stock}</td>
+              </tr>            
+            </tbody>
+          </Table>
+          </Col>
+        </Row>
+        
         <Table bordered size="sm">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Purchased</th>
+              <th>Year</th>
+              <th>Price (£)</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr>
-              <td>Purchased</td>
-              <td>{props.wine.Purchased}</td>
-            </tr>
-            <tr>
-              <td>Price</td>
-              <td>{props.wine.Price}</td>
-            </tr>
-            <tr>
-              <td>Date</td>
-              <td>{props.wine.Date}</td>
-            </tr>
-            <tr>
-              <td>Stock</td>
-              <td>{props.wine.Stock}</td>
-            </tr>
-            <tr>
-              <td>Rating (5)</td>
-              <td>{props.wine.Rating}</td>
-            </tr>
+            {props.wine.purchaseHistory.map((purchase, key) => {
+              return (
+                <tr key={key}>
+                  <td>{purchase.Date}</td>
+                  <td>{purchase.Purchased}</td>
+                  <td>{purchase.Year}</td>
+                  <td>{purchase.Price}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </Table>
       </Modal.Body>

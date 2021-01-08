@@ -9,6 +9,7 @@ import Detail from "./Detail";
 // import { formatData } from '../utils/formatData';
 // import { mockData } from '../utils/mockData';
 import testData from '../utils/testDataOne.json';
+import testPurchaseData from '../utils/testPurchaseData.json';
 import { getCounts } from '../utils/counts';
 
 const filterParams = {
@@ -27,12 +28,17 @@ const App = () => {
 	const [initWines, setInitWines] = useState([]);
 	const [wines, setWines] = useState([]);
 	const [counts, setCounts] = useState(null);
+	const [purchaseHistory, setPurchaseHistory] = useState([]);
 	const [filters, setFilters] = useState(filterParams);
 	const [wineDetail, setWineDetail] = useState({});
 	const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = (e, wine) => {
+		const winePurchseHistory = purchaseHistory.filter(item => {
+			return item.Image === wine.Id;
+		});
+		wine.purchaseHistory = winePurchseHistory;
 		setWineDetail(wine);
 		setShow(true);
 	};
@@ -52,6 +58,7 @@ const App = () => {
 		// data = JSON.parse(data);
 		setInitWines(data);
 		setWines(data);
+		setPurchaseHistory(testPurchaseData);
 		// **********************************************
 		// try {
 		// 	const { data } = await getData();
