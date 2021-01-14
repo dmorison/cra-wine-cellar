@@ -5,28 +5,38 @@ import Table from 'react-bootstrap/Table';
 import "./Detail.css";
 
 const Detail = (props) => {
-  const stars = Number(props.wine.Rating);
+  const rated = props.wine.Rating === "" ? false : true;
 
   const renderStarRating = () => {
-    const starArr = [];
-    console.log(stars);
+    const stars = Number(props.wine.Rating);
+    
     const halfStar = (stars % 1 === 0) ? false : true;
-    console.log(halfStar);
     const fullStars = halfStar ? stars - 0.5 : stars;
-    console.log(fullStars);
     const emptyStars = 5 - Math.round(stars);
-    console.log(emptyStars);
+
+    const starArr = [];
+    for (let i = 0; i < fullStars; i++) {
+      starArr.push(1);
+    }
+    if (halfStar) {
+      starArr.push(5);
+    }
+    for (let j = 0; j < emptyStars; j++) {
+      starArr.push(0);
+    }
 
     return (
       <>
-        {fullStars.map(() => {
-          return <i class="fa fa-star" aria-hidden="true"></i>
-        })}
-        {halfStar && (
-          <i class="fa fa-star-half-o" aria-hidden="true"></i>
-        )}
-        {emptyStars.map(() => {
-          return <i class="fa fa-star-o" aria-hidden="true"></i>
+        {starArr.map((star, key) => {
+          return <i className={star === 1 ? 
+                                "fa fa-star" :
+                                  star === 5 ?
+                                  "fa fa-star-half-o" :
+                                    star === 0 ?
+                                    "fa fa-star-o" :
+                                      null} 
+                    aria-hidden="true"
+                    key={key}></i>
         })}
       </>
     );
@@ -39,10 +49,17 @@ const Detail = (props) => {
       </Modal.Header>
       <Modal.Body>
         <Row>
+          <Col>
+            <p>
+              {rated ? renderStarRating() : <span>Not yet rated</span>}
+            </p>
+          </Col>
+        </Row>
+        <Row>
           <Col xs={3}>
             <img 
-              src={props.wine.Image ? `/images/${props.wine.Image}.jpg` : "/images/placeholder.png"} 
-              className="wine-thumbnail"
+              src={props.wine.Image ? `/images/${props.wine.Image}.jpg` : "/images/wine-bottle-1.png"} 
+              className={props.wine.Image ? "wine-thumbnail" : "wine-thumbnail placeholder"}
               alt="wine thumbnail" 
             />
           </Col>
@@ -61,29 +78,13 @@ const Detail = (props) => {
             </p>
           </Col>
         </Row>
+        
         <Row>
           <Col>
-            {renderStarRating()}
+            <p className="large-text p-no-margin"><strong>Stock: {props.wine.Stock}</strong></p>
           </Col>
         </Row>
-        <Row>
-          <Col xs={6}>
-          <Table size="sm">
-            <tbody>            
-              <tr>
-                <td>Rating (5)</td>
-                  <td>{props.wine.Rating}</td>
-                </tr>
-              <tr>
-                <td>Stock</td>
-                <td>{props.wine.Stock}</td>
-              </tr>            
-            </tbody>
-          </Table>
-          </Col>
-        </Row>
-        
-        <Table bordered size="sm">
+        <Table size="sm">
           <thead>
             <tr>
               <th>Date</th>
