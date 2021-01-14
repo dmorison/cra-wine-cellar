@@ -36,6 +36,7 @@ const Head = (props) => {
 			if (thisFilter[prop] === "") {
 				// console.log(`${prop} is not set`);
 			} else if (thisFilter[prop] === "other") {
+        console.log(filterHeads[filterBy]);
         updatedWines = updatedWines.filter(item => {
 					return filterHeads[filterBy].indexOf(item[prop]) < 0;
 				});

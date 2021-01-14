@@ -46,6 +46,7 @@
 .modal-body td,
 .modal-body th {
   color: #317e7b;
+  max-width: 135px;
 }
 
 .wine-thumbnail {
@@ -65,4 +66,11 @@
 .fa {
   color: #87403f;
   font-size: 24px;
+}
+
+@media only screen and (min-width: 768px) {
+  .modal-body td,
+  .modal-body th {
+    max-width: 208px;
+  }
 }

@@ -28,6 +28,10 @@
   color: #317e7b;
 }
 
+.dropdown-menu .dropdown-item.active, .dropdown-menu .dropdown-item:active {
+  background-color: #87403f;
+}
+
 .navbar-brand {
   font-weight: bold;
 }
