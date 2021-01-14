@@ -9,7 +9,7 @@ const getData = () => {
 
 	const options = {
 		method: "GET",
-		url: URLoneSheet
+		url: URLtwoSheets
 	};
 	return axios(options);
 };

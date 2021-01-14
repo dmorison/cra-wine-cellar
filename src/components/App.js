@@ -7,8 +7,7 @@ import WineCard from "./WineCard";
 import Detail from "./Detail";
 // import { getData } from '../utils/API';
 // import { formatData } from '../utils/formatData';
-// import { mockData } from '../utils/mockData';
-import testData from '../utils/testDataOne.json';
+import testDataTwo from '../utils/testDataTwo.json';
 import testPurchaseData from '../utils/testPurchaseData.json';
 import { getCounts } from '../utils/counts';
 
@@ -53,9 +52,7 @@ const App = () => {
 	}, [wines]);
 
 	const getWines = async () => {
-		let data = testData;
-		console.log(data);
-		// data = JSON.parse(data);
+		let data = testDataTwo;
 		setInitWines(data);
 		setWines(data);
 		setPurchaseHistory(testPurchaseData);
@@ -63,12 +60,25 @@ const App = () => {
 		// try {
 		// 	const { data } = await getData();
 		// 	console.log(data);
-		// 	console.log(data.values);
-		// 	let responseData = formatData(data.values);
-		// 	console.log(responseData);
-		// 	setInitWines(responseData);
-		// 	setWines(responseData);
+		// 	const dataValues = data.valueRanges;
+		// 	console.log(dataValues);
+		// 	let wineData = [];
+		// 	let purchaseData = [];
+		// 	dataValues.forEach((arr, index) => {
+		// 		const objects = formatData(arr.values);
+		// 		if (index === 0) {
+		// 			wineData = objects;
+		// 		} else {
+		// 			purchaseData = objects;
+		// 		}
+		// 	});
+		// 	console.log(wineData);
+		// 	console.log(purchaseData);
+		// 	setInitWines(wineData);
+		// 	setWines(wineData);
+		// 	setPurchaseHistory(purchaseData);
 		// } catch (err) {
+		// 	console.log("Fetch data failed");
 		// 	console.log(err);
 		// }
 	};
