@@ -1,6 +1,5 @@
 .wine-card {
   display: block;
-  padding: 20px;
   margin-bottom: 20px;
   border-radius: 4px;
   text-decoration: none;
@@ -30,10 +29,18 @@
 
 .wine-name {
   font-size: 17px;
-  height: 51px;
+  color: #fff;
+  height: 75px;
+  padding: 20px;
   overflow: hidden;
   text-overflow: ellipsis;  
   display: -webkit-box;
   -webkit-line-clamp: 2; /* number of lines to show */
   -webkit-box-orient: vertical;
+  background-color: #e3e0cf36;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.wine-info {
+  padding: 20px;
 }
