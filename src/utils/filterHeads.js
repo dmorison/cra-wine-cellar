@@ -28,6 +28,7 @@ export const filterHeads = {
 		"Waitrose",
 		"Ocado",
 		"Majestic",
+		"Naked Wines",
 		"Amazon",
 		"Laithwaites",
 		"Other"

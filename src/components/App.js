@@ -7,7 +7,8 @@ import WineCard from "./WineCard";
 import Detail from "./Detail";
 import { getData } from '../utils/API';
 import { formatData } from '../utils/formatData';
-// import { mockData } from '../utils/mockData';
+// import testDataTwo from '../utils/testDataTwo.json';
+// import testPurchaseData from '../utils/testPurchaseData.json';
 import { getCounts } from '../utils/counts';
 
 const filterParams = {
@@ -26,12 +27,17 @@ const App = () => {
 	const [initWines, setInitWines] = useState([]);
 	const [wines, setWines] = useState([]);
 	const [counts, setCounts] = useState(null);
+	const [purchaseHistory, setPurchaseHistory] = useState([]);
 	const [filters, setFilters] = useState(filterParams);
 	const [wineDetail, setWineDetail] = useState({});
 	const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = (e, wine) => {
+		const winePurchseHistory = purchaseHistory.filter(item => {
+			return item.Image === wine.Id;
+		});
+		wine.purchaseHistory = winePurchseHistory;
 		setWineDetail(wine);
 		setShow(true);
 	};
@@ -46,19 +52,27 @@ const App = () => {
 	}, [wines]);
 
 	const getWines = async () => {
-		// let data = mockData;
-		// console.log(data);
+		// let data = testDataTwo;
 		// setInitWines(data);
 		// setWines(data);
+		// setPurchaseHistory(testPurchaseData);
 		// **********************************************
 		try {
 			const { data } = await getData();
-			console.log(data);
-			console.log(data.values);
-			let responseData = formatData(data.values);
-			console.log(responseData);
-			setInitWines(responseData);
-			setWines(responseData);
+			const dataValues = data.valueRanges;
+			let wineData = [];
+			let purchaseData = [];
+			dataValues.forEach((arr, index) => {
+				const objects = formatData(arr.values);
+				if (index === 0) {
+					wineData = objects;
+				} else {
+					purchaseData = objects;
+				}
+			});
+			setInitWines(wineData);
+			setWines(wineData);
+			setPurchaseHistory(purchaseData);
 		} catch (err) {
 			console.log(err);
 		}

@@ -12,6 +12,8 @@ const Head = (props) => {
   let { filters, counts } = props;
   
   const filterWines = (e, filterBy) => {
+    // console.log(`e: ${e}`);
+    // console.log(`filterBy: ${filterBy}`);
     let updatedWines = props.initWines;
     
     if (filterBy === "Search") {
@@ -29,17 +31,23 @@ const Head = (props) => {
 
     let thisFilter = filters.filterTypes;
 		if (filterBy !== "Stock" && filterBy !== "Search" && filterBy !== "Sort") {
+      // console.log("filterBy filterTypes");
 			thisFilter[filterBy] = e;
-		}
+    } else {
+      console.log("filterBy: Stock, Search, Sort");
+    }
+    // console.log(thisFilter);
     
 		for (const prop in thisFilter) {
 			if (thisFilter[prop] === "") {
 				// console.log(`${prop} is not set`);
 			} else if (thisFilter[prop] === "other") {
+        // console.log(`${prop} === ${thisFilter[prop]}`);
         updatedWines = updatedWines.filter(item => {
-					return filterHeads[filterBy].indexOf(item[prop]) < 0;
+					return filterHeads[prop].indexOf(item[prop]) < 0;
 				});
       } else {
+        // console.log(`${prop} === ${thisFilter[prop]}`);
 				updatedWines = updatedWines.filter(item => {
 					return item[prop].toLowerCase() === thisFilter[prop];
 				});
@@ -51,7 +59,6 @@ const Head = (props) => {
       stockFilter = Number(e);
       filters.Stock = stockFilter;
     }
-
     if (stockFilter > 0) {
       updatedWines = updatedWines.filter(item => {
         return Number(item.Stock) > 0;
@@ -83,6 +90,8 @@ const Head = (props) => {
       }
       filters.Sort = sortVariable;
     }
+
+    console.log("******************");
 
     filters.filterTypes = thisFilter;
 		props.setFilters(filters);
