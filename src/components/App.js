@@ -5,10 +5,10 @@ import './App.css';
 import Head from "./Head";
 import WineCard from "./WineCard";
 import Detail from "./Detail";
-// import { getData } from '../utils/API';
-// import { formatData } from '../utils/formatData';
-import testDataTwo from '../utils/testDataTwo.json';
-import testPurchaseData from '../utils/testPurchaseData.json';
+import { getData } from '../utils/API';
+import { formatData } from '../utils/formatData';
+// import testDataTwo from '../utils/testDataTwo.json';
+// import testPurchaseData from '../utils/testPurchaseData.json';
 import { getCounts } from '../utils/counts';
 
 const filterParams = {
@@ -52,35 +52,30 @@ const App = () => {
 	}, [wines]);
 
 	const getWines = async () => {
-		let data = testDataTwo;
-		setInitWines(data);
-		setWines(data);
-		setPurchaseHistory(testPurchaseData);
+		// let data = testDataTwo;
+		// setInitWines(data);
+		// setWines(data);
+		// setPurchaseHistory(testPurchaseData);
 		// **********************************************
-		// try {
-		// 	const { data } = await getData();
-		// 	console.log(data);
-		// 	const dataValues = data.valueRanges;
-		// 	console.log(dataValues);
-		// 	let wineData = [];
-		// 	let purchaseData = [];
-		// 	dataValues.forEach((arr, index) => {
-		// 		const objects = formatData(arr.values);
-		// 		if (index === 0) {
-		// 			wineData = objects;
-		// 		} else {
-		// 			purchaseData = objects;
-		// 		}
-		// 	});
-		// 	console.log(wineData);
-		// 	console.log(purchaseData);
-		// 	setInitWines(wineData);
-		// 	setWines(wineData);
-		// 	setPurchaseHistory(purchaseData);
-		// } catch (err) {
-		// 	console.log("Fetch data failed");
-		// 	console.log(err);
-		// }
+		try {
+			const { data } = await getData();
+			const dataValues = data.valueRanges;
+			let wineData = [];
+			let purchaseData = [];
+			dataValues.forEach((arr, index) => {
+				const objects = formatData(arr.values);
+				if (index === 0) {
+					wineData = objects;
+				} else {
+					purchaseData = objects;
+				}
+			});
+			setInitWines(wineData);
+			setWines(wineData);
+			setPurchaseHistory(purchaseData);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
   return (
