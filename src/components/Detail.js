@@ -82,6 +82,7 @@ const Detail = (props) => {
         <Row>
           <Col>
             <p className="large-text p-no-margin"><strong>Stock: {props.wine.Stock}</strong></p>
+            <p className="p-no-margin">Market price: {props.wine.Price}</p>
           </Col>
         </Row>
         <Table size="sm">
