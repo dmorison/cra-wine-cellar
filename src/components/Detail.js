@@ -1,11 +1,12 @@
 import React from "react";
-import Modal from 'react-bootstrap/Modal';
-import { Row, Col } from 'react-bootstrap';
-import Table from 'react-bootstrap/Table';
+import { Row, Col, Modal, Media, Table } from 'react-bootstrap';
 import "./Detail.css";
 
 const Detail = (props) => {
   const rated = props.wine.Rating === "" ? false : true;
+  const outOfStock = props.wine.Stock === "0" ? true : false;
+
+  const headImage = Math.random() < 0.5 ? "grapes" : "barrels";
 
   const renderStarRating = () => {
     const stars = Number(props.wine.Rating);
@@ -44,44 +45,57 @@ const Detail = (props) => {
 
   return props.show && (
     <Modal show={props.show} onHide={props.handleClose}>
-      <Modal.Header closeButton>
+      <Modal.Header
+        className={`background-image-${headImage}`}
+        closeButton
+      >
         <Modal.Title><span>{props.wine.Name} - {props.wine.Year}</span></Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
-          <Col>
+          <Col xs>
             <p>
-              {rated ? renderStarRating() : <span>Not yet rated</span>}
+              {rated ? renderStarRating() : <span><strong>No rating</strong></span>}
             </p>
           </Col>
-        </Row>
-        <Row>
-          <Col xs={3}>
-            <img 
-              src={props.wine.Image ? `/images/${props.wine.Image}.jpg` : "/images/wine-bottle-1.png"} 
-              className={props.wine.Image ? "wine-thumbnail" : "wine-thumbnail placeholder"}
-              alt="wine thumbnail" 
-            />
-          </Col>
-          <Col xs={9}>
-            <span className="small-text"><i><strong>{props.wine.Type}</strong></i></span><br />
-            <p className="large-text p-no-margin">
+          <Col xs>
+            <p className="large-text p-no-margin text-right">
               <strong>
-                {props.wine.Region},<br />
-                {props.wine.Country}
-              </strong>
-            </p>
-            <p className="medium-text">
-              <strong>
-                {props.wine.Variety === "Blend" ? props.wine.Grapes : props.wine.Variety}
+                {outOfStock ? "Out of stock!" : `Stock: ${props.wine.Stock}`}                
               </strong>
             </p>
           </Col>
         </Row>
-        
         <Row>
           <Col>
-            <p className="large-text p-no-margin"><strong>Stock: {props.wine.Stock}</strong></p>
+            <Media>
+              <img
+                width={96}
+                height={"auto"} 
+                src={props.wine.Image ? `/images/${props.wine.Image}.jpg` : "/images/wine-bottle-1.png"} 
+                className={props.wine.Image ? "mr-3 wine-thumbnail" : "mr-3 wine-thumbnail placeholder"}
+                alt="wine thumbnail" 
+              />
+              <Media.Body>
+                <span className="small-text"><i><strong>{props.wine.Type}</strong></i></span><br />
+                <p className="large-text p-no-margin">
+                  <strong>
+                    {props.wine.Region},<br />
+                    {props.wine.Country}
+                  </strong>
+                </p>
+                <p className="medium-text">
+                  <strong>
+                    {props.wine.Variety === "Blend" ? props.wine.Grapes : props.wine.Variety}
+                  </strong>
+                </p>
+              </Media.Body>
+            </Media>            
+          </Col>
+        </Row>
+        <Row>
+          <Col>            
+            <p className="p-no-margin p-margin-top text-right">Market price: {props.wine.Price}</p>
           </Col>
         </Row>
         <Table size="sm">
@@ -90,7 +104,7 @@ const Detail = (props) => {
               <th>Date</th>
               <th>Purchased</th>
               <th>Year</th>
-              <th>Price (£)</th>
+              <th className="text-right">Price (£)</th>
             </tr>
           </thead>
           <tbody>
@@ -100,7 +114,7 @@ const Detail = (props) => {
                   <td>{purchase.Date}</td>
                   <td>{purchase.Purchased}</td>
                   <td>{purchase.Year}</td>
-                  <td>{purchase.Price}</td>
+                  <td className="text-right">{purchase.Price}</td>
                 </tr>
               )
             })}

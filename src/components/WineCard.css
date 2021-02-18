@@ -1,35 +1,44 @@
 .wine-card {
+  color: #87403f;
+  background-color: #feefff;
   display: block;
+  min-height: 167px;
   margin-bottom: 20px;
-  border-radius: 4px;
+  border-radius: 6px;
   text-decoration: none;
   transition: all .4s ease-in-out;
-  
-  /* Light theme */
-  /* color: #317e7b; */
-  /* background-color: #c5d5cb; */
+  box-shadow: 0 13px 40px 0 rgb(0 0 0 / 8%);
 
-  /* Dark theme */
-  color: #eee;
-  background-color: #3f4963;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-position: 161px 12px;
+}
+
+.wine-card.bgimg-barrel {
+  background-image: url('../assets/images/barrel-white.png');
+}
+.wine-card.bgimg-bottle {
+  background-image: url('../assets/images/bottle-glass-white.png');
+}
+.wine-card.bgimg-clock {
+  background-image: url('../assets/images/wine-clock.png');
+}
+
+@media only screen and (min-width: 768px) {
+  .wine-card {
+    background-position: 125px 33px;
+  }
 }
 
 .wine-card:hover {
+  color: #87403f;
+  background-color: #fdf9f9;
   cursor: pointer;
   text-decoration: none;
-
-  /* Light theme */
-  /* color: #173e43; */
-  /* background-color: #9fa8a3; */
-
-  /* Dark theme */
-  color: #fff;
-  background-color: #575b65;
 }
 
 .wine-name {
   font-size: 17px;
-  color: #fff;
   height: 75px;
   padding: 20px;
   overflow: hidden;
@@ -37,10 +46,26 @@
   display: -webkit-box;
   -webkit-line-clamp: 2; /* number of lines to show */
   -webkit-box-orient: vertical;
-  background-color: #e3e0cf36;
   border-radius: 4px 4px 0px 0px;
 }
 
+.wine-card:hover .wine-name {
+  text-decoration: underline;
+}
+
 .wine-info {
-  padding: 20px;
+  padding: 0px 20px 20px;
+}
+
+.fa.fa-chevron-right {
+  font-size: 16px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+
+  transition: all .4s ease-in-out;
+}
+
+.wine-card:hover .fa.fa-chevron-right {
+  right: 24px;
 }
