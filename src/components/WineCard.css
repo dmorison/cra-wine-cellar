@@ -1,37 +1,20 @@
 .wine-card {
+  color: #87403f;
+  background-color: #efefef;
   display: block;
+  min-height: 167px;
   margin-bottom: 20px;
   border-radius: 6px;
   text-decoration: none;
   transition: all .4s ease-in-out;
-  
-  /* Light theme */
-  /* color: #317e7b; */
-  /* background-color: #c5d5cb; */
-
-  /* Dark theme */
-  /* color: #eee; */
-  /* background-color: #3f4963; */
-
-  color: #87403f;
-  background-color: #efefef;
-
   box-shadow: 0 13px 40px 0 rgb(0 0 0 / 8%);
 }
 
 .wine-card:hover {
+  color: #87403f;
+  background-color: #fff;
   cursor: pointer;
   text-decoration: none;
-
-  /* Light theme */
-  /* color: #173e43; */
-  /* background-color: #9fa8a3; */
-
-  /* Dark theme */
-  /* color: #fff; */
-  /* background-color: #575b65; */
-
-  background-color: #fff;
 }
 
 .wine-name {
@@ -46,6 +29,23 @@
   border-radius: 4px 4px 0px 0px;
 }
 
+.wine-card:hover .wine-name {
+  text-decoration: underline;
+}
+
 .wine-info {
   padding: 0px 20px 20px;
+}
+
+.fa.fa-chevron-right {
+  font-size: 16px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+
+  transition: all .4s ease-in-out;
+}
+
+.wine-card:hover .fa.fa-chevron-right {
+  right: 20px;
 }

@@ -1,15 +1,22 @@
 .modal-dialog .modal-content {
-  border: 4px solid #e3e0cf;
+  /* border: 4px solid #e3e0cf; */
+  border: 4px solid #fff;
 }
 
 .modal-content .modal-header {
-  background-image: url("../assets/images/wine-barrels.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  /* background-color: #9fa8a3; */
+  background-color: #9fa8a3;
   border-bottom: none;
   min-height: 104px;
-  border-bottom: 4px solid #e3e0cf;
+  border-bottom: 4px solid #fff;
+}
+
+.modal-content .modal-header.background-image-grapes {
+  background-image: url("../assets/images/wine-grapes.jpg");
+}
+.modal-content .modal-header.background-image-barrels {
+  background-image: url("../assets/images/wine-barrels.jpg");
 }
 
 .modal-header .close {
@@ -31,12 +38,15 @@
 }
 
 .modal-body {
-  color: #317e7b;
-  background-color: #c5d5cb;
+  /* color: #317e7b; */
+  /* background-color: #c5d5cb; */
+  color: #87403f;
+  background-color: #E6E6E6;
 }
 
 .modal-body .table {
-  background-color: #e3e0cf;
+  /* background-color: #e3e0cf; */
+  background-color: #efefef;
 }
 
 .modal-body .table th {
@@ -50,9 +60,8 @@
 }
 
 .wine-thumbnail {
-  width: 100%;
-  height: auto;
-  margin-bottom: 15px;
+  /* width: 100%; */
+  /* height: auto; */
   border: 2px solid #252525;
   border-radius: 4px;
   background-color: #e3e0cf;

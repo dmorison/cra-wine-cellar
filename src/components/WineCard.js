@@ -14,6 +14,7 @@ const WineCard = (props) => {
           <span>{wine.Region}</span><br />
           <span>{wine.Country}</span>
         </div>
+        <i className="fa fa-chevron-right"></i>
       </a>
     </Col>
   );
