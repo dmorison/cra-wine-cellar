@@ -17,6 +17,9 @@
   text-align: right;
   background-color: #E6E6E6;
 }
+.dropdown-menu.show {
+  transition: all .4s ease-in-out;
+}
 
 .dropdown-menu .dropdown-item {
   color: #87403f;

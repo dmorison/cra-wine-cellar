@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Container, Col, Navbar, Nav, NavDropdown, Form } from "react-bootstrap";
 import "./Head.css";
-import logo from "../assets/images/logo-white.png";
+import logo from "../assets/images/barrel-white.png";
 
 import { filterHeads } from '../utils/filterHeads';
 

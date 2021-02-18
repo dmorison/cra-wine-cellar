@@ -1,6 +1,6 @@
 .wine-card {
   color: #87403f;
-  background-color: #efefef;
+  background-color: #feefff;
   display: block;
   min-height: 167px;
   margin-bottom: 20px;
@@ -8,11 +8,31 @@
   text-decoration: none;
   transition: all .4s ease-in-out;
   box-shadow: 0 13px 40px 0 rgb(0 0 0 / 8%);
+
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-position: 161px 12px;
+}
+
+.wine-card.bgimg-barrel {
+  background-image: url('../assets/images/barrel-white.png');
+}
+.wine-card.bgimg-bottle {
+  background-image: url('../assets/images/bottle-glass-white.png');
+}
+.wine-card.bgimg-clock {
+  background-image: url('../assets/images/wine-clock.png');
+}
+
+@media only screen and (min-width: 768px) {
+  .wine-card {
+    background-position: 125px 33px;
+  }
 }
 
 .wine-card:hover {
   color: #87403f;
-  background-color: #fff;
+  background-color: #fdf9f9;
   cursor: pointer;
   text-decoration: none;
 }
@@ -47,5 +67,5 @@
 }
 
 .wine-card:hover .fa.fa-chevron-right {
-  right: 20px;
+  right: 24px;
 }
