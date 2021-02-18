@@ -26,6 +26,7 @@ export const filterHeads = {
 	],
 	Purchased: [
 		"Waitrose",
+		"Tesco",
 		"Ocado",
 		"Majestic",
 		"Naked Wines",

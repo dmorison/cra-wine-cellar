@@ -12,8 +12,6 @@ const WineCard = (props) => {
   } else if (bgImgNum >= 0.666) {
     bgImg = "clock";
   }
-  console.log(bgImgNum);
-  console.log(bgImg);
 
   return (
     <Col xs={12} md={4} lg={3}>
