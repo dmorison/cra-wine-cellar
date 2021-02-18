@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
-import { Container } from "react-bootstrap";
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Form from 'react-bootstrap/Form';
+import { Container, Col, Navbar, Nav, NavDropdown, Form } from "react-bootstrap";
 import "./Head.css";
+import logo from "../assets/images/barrel-white.png";
 
 import { filterHeads } from '../utils/filterHeads';
 
@@ -99,9 +96,18 @@ const Head = (props) => {
 	}
 
   return counts && (
-    <Navbar sticky="top" expand="md" variant="dark">
+    <Navbar sticky="top" expand="lg" variant="dark">
       <Container>
-      <Navbar.Brand>Wine Cellar</Navbar.Brand>
+      <Navbar.Brand className="brand-custom">
+        <img
+          src={logo}
+          width="30"
+          height="30"
+          className="d-inline-block align-top mr-2"
+          alt="React Bootstrap logo"
+        />
+        Wine Cellar
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav>
@@ -200,8 +206,9 @@ const Head = (props) => {
           </NavDropdown>
           
           <Form inline>
+            <Col className="mr-auto mobile-only"></Col>
             <Form.Control
-              className="search-input" 
+              className="search-input mr-auto" 
               type="text" 
               placeholder="Search Name" 
               onChange={(e) => filterWines(e, "Search")}

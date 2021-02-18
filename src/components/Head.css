@@ -1,11 +1,5 @@
 .navbar {
-  /* Light theme */
-  /* background-color: #173e43; */
-
-  /* Dark theme */
   background-color: #87403f;
-  
-  border-bottom: 4px solid #eee;
 }
 
 .navbar > container {
@@ -21,18 +15,24 @@
 
 .navbar-nav .dropdown-menu {
   text-align: right;
-  background-color: #f1f1ef;
+  background-color: #E6E6E6;
+}
+.dropdown-menu.show {
+  transition: all .4s ease-in-out;
 }
 
 .dropdown-menu .dropdown-item {
-  color: #317e7b;
+  color: #87403f;
 }
 
 .dropdown-menu .dropdown-item.active, .dropdown-menu .dropdown-item:active {
+  color: rgba(255,255,255,.75);
   background-color: #87403f;
 }
 
-.navbar-brand {
+.navbar-brand.brand-custom {
+  color: #efefef !important;
+  font-size: 24px;
   font-weight: bold;
 }
 
@@ -45,7 +45,7 @@
   background-color: #f1f1ef;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 992px) {
   .dropdown {
     text-align: center;
   }
